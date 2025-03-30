@@ -3,6 +3,7 @@ from unittest.mock import patch, Mock
 from zipfile import ZipFile
 import pandas as pd
 from src.data_injester.zip_data_ingester import ZipDataIngester
+from src.data_injester.data_ingester_factory import DataIngesterFactory
 from pandas.testing import assert_frame_equal
 
 class TestZipDataIngester(unittest.TestCase):
@@ -49,6 +50,16 @@ class TestZipDataIngester(unittest.TestCase):
                 mock_pd.assert_called_once()
                 mock_zipfile.assert_called_once()
                 assert_frame_equal(df, mock_df)
+
+    @patch('src.data_injester.data_ingester_factory.ZipDataIngester')
+    def test_factory_get_data_ingester_zip(self, zip_ingester):
+        m = Mock()
+        zip_ingester.return_value = m
+
+        self.assertEqual(DataIngesterFactory.get_data_ingester('.zip'), m)
+
+    def test_factory_get_data_ingester_invalie(self):
+        self.assertRaises(ValueError, DataIngesterFactory.get_data_ingester, 'N')
 
 if __name__ == '__main__':
     unittest.main()

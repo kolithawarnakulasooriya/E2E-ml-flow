@@ -7,7 +7,7 @@ class DataIngesterFactory():
     def get_data_ingester(file_extension: str) -> DataIngester:
         
         match(file_extension):
-            case 'zip':
+            case '.zip':
                 return ZipDataIngester()
             
         raise ValueError("No accepted ingester found!")
