@@ -6,9 +6,18 @@ import os
 EXTRACTED_PATH = "data/extracted"
 
 """
-This class determines the zip data ingest
+Data Ingester for Zip type of classes
 """
 class ZipDataIngester(DataIngester):
+
+    """
+    Ingest data from a certain zip file and read csv tabular data inside the file. return it as a pandas dataframe
+
+    Parameters: file path string 
+
+    Returns:
+        pandas data frame 
+    """
     def ingest(self, file_path: str) -> pd.DataFrame:
         # if the path is not determined zip file put a guard clause
         if not file_path.endswith('zip'):
