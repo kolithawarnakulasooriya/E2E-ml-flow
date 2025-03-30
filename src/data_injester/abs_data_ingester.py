@@ -2,7 +2,7 @@ import pandas as pd
 from abc import ABC, abstractmethod
 
 """
-This is the Data Ingester Class
+    Abstract base class for data ingesters
 """
 class DataIngester(ABC):
 
