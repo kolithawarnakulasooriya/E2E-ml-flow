@@ -16,13 +16,11 @@ class ZipDataIngester(DataIngester):
         
         # Extract zip file
         with ZipFile(file_path) as zip_file:
-            print("ddd")
             zip_file.extractall(EXTRACTED_PATH)
 
         # list all files to check csv is there
         all_files = os.listdir(EXTRACTED_PATH)
         csv_files = [file for file in all_files if file.endswith('.csv')]
-        print(csv_files)
 
         # if no CSV files found
         if len(csv_files) == 0:
