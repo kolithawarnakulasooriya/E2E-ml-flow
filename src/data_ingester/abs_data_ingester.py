@@ -5,10 +5,14 @@ from abc import ABC, abstractmethod
     Abstract base class for data ingesters
 """
 class DataIngester(ABC):
-
-    """
-        This is the core abstract ingest method
-    """
     @abstractmethod
     def ingest(self, file_path:str) -> pd.DataFrame:
+        """_Perform any data ingestion from any data source
+
+        Args:
+            file_path (str): specific filetype
+
+        Returns:
+            pd.DataFrame: return extracted dataframe
+        """
         pass
