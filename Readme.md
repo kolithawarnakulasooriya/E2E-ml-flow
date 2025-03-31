@@ -25,9 +25,61 @@ If your data is in zrchive files, put them in to `/data directory`. We annotated
             |- zip_data_ingester.py
 ```
 
-**Append New Data Ingestor**
+data_ingester_factory allows you to ingest data from your centain datasource.
 
-Add new claas as `<type>_data_ingester.py` inherited by the `abs_data_ingester`. Append your code in the `ingest` method and return your ingester object through `data_ingester_factory`.
+```
+from src.data_ingester.data_ingester_factory import DataIngesterFactory
+import pandas as pd
+
+df: pd.Dataframe = DataIngesterFactory.get_data_ingester('.zip').ingest('../data/archive.zip')
+```
+
+### Data Analyser
+
+This component allows you to analyse data, such as missing values, variation analysis, etc. This section uses decorator and tempate design patterns to develop components.
+
+1. Data Inspector
+
+```
++ src
+    |- analysis
+            |- abs_data_inspection_strategy.py  
+            |- basic_data_inspection.py
+            |- inspection_decorator.py
+```
+
+Data inspector uses strategy design pattern which can embed multiple inspectors. inspection_decorator allows yout to run your inspections
+
+```
+from src.analysis.basic_data_inspection import DataTypesInspectionStrategy, DataSummaryInspectionStrategy
+from src.analysis.inspection_decorator import Inspector
+
+inspecor = Inspector(df)
+inspecor.add_strategy(DataTypesInspectionStrategy()).add_strategy(DataSummaryInspectionStrategy()).execute()
+```
+
+`abs_data_inspection_strategy.py` provides abstract strategy for the implementations.
+
+2. Missing data analyser
+
+This component allows you to understand and analyse, visualize missing data in the dataset. This component uses templete design pattern to implement analser.
+
+```
++ src
+    |- analysis
+            |- abs_missing_value_analysis.py  
+            |- missing_value_analysis.py
+```
+
+`abs_missing_value_analysis.py` provides a abstract interface for missing value analysers. All the analysers are resides in the `missing_value_analysis.py` module.
+
+```
+from src.analysis.inspection_decorator import Inspector
+from src.analysis.missing_value_analysis import BasicMissingValueAnalyser
+
+analyzer = BasicMissingValueAnalyser()
+analyzer.analyse(df)
+```
 
 ## Important
 
