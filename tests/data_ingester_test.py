@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import patch, Mock
 from zipfile import ZipFile
 import pandas as pd
-from src.data_injester.zip_data_ingester import ZipDataIngester
-from src.data_injester.data_ingester_factory import DataIngesterFactory
+from src.data_ingester.zip_data_ingester import ZipDataIngester
+from src.data_ingester.data_ingester_factory import DataIngesterFactory
 from pandas.testing import assert_frame_equal
 
 class TestZipDataIngester(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestZipDataIngester(unittest.TestCase):
         data_ingester = ZipDataIngester()
         self.assertRaises(ValueError, data_ingester.ingest, "abc.zipp")
 
-    @patch('src.data_injester.zip_data_ingester.ZipFile')
+    @patch('src.data_ingester.zip_data_ingester.ZipFile')
     def test_no_csv_files(self, mock_zipfile):
         data_ingester = ZipDataIngester()
         
@@ -22,7 +22,7 @@ class TestZipDataIngester(unittest.TestCase):
             mocked_listdir.assert_called_once()
             mock_zipfile.assert_called_once()
 
-    @patch('src.data_injester.zip_data_ingester.ZipFile')
+    @patch('src.data_ingester.zip_data_ingester.ZipFile')
     def test_multiple_csv_files(self, mock_zipfile):
         data_ingester = ZipDataIngester()
 
@@ -34,7 +34,7 @@ class TestZipDataIngester(unittest.TestCase):
             mock_zipfile.assert_called_once()
 
     @patch('pandas.read_csv')
-    @patch('src.data_injester.zip_data_ingester.ZipFile') 
+    @patch('src.data_ingester.zip_data_ingester.ZipFile') 
     def test_csv_file_with_dataframe(self, mock_zipfile, mock_pd):
         data_ingester = ZipDataIngester()
 
@@ -51,14 +51,16 @@ class TestZipDataIngester(unittest.TestCase):
                 mock_zipfile.assert_called_once()
                 assert_frame_equal(df, mock_df)
 
-    @patch('src.data_injester.data_ingester_factory.ZipDataIngester')
+class TestDataIngesterFactory(unittest.TestCase):
+    
+    @patch('src.data_ingester.data_ingester_factory.ZipDataIngester')
     def test_factory_get_data_ingester_zip(self, zip_ingester):
         m = Mock()
         zip_ingester.return_value = m
 
         self.assertEqual(DataIngesterFactory.get_data_ingester('.zip'), m)
 
-    def test_factory_get_data_ingester_invalie(self):
+    def test_factory_get_data_ingester_invalid(self):
         self.assertRaises(ValueError, DataIngesterFactory.get_data_ingester, 'N')
 
 if __name__ == '__main__':
