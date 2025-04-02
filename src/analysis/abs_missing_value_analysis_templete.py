@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 import pandas as pd
+from .abs_analyse import Analysis
 
-class MissingValueAnalyzerTemplate(ABC):
+class MissingValueAnalyzerTemplate(Analysis):
 
     @abstractmethod
     def indeitify_missing_values(self, df: pd.DataFrame):

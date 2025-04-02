@@ -81,6 +81,27 @@ analyzer = BasicMissingValueAnalyser()
 analyzer.analyse(df)
 ```
 
+2. Univariant Analyser
+
+This component allows you to understand and analyse, visualize of one feature in the dataset. This component uses strategy design pattern to implement analser.
+
+```
++ src
+    |- analysis
+            |- abs_variate_analyse_strategy.py  
+            |- varient_analysis.py
+```
+
+`abs_variate_analyse_strategy.py` provides a abstract interface for all variant analysis. All the analysers are resides in the `varient_analysis.py` module. Here is the exaple for univariant basic neumerical analysis.
+
+```
+from src.analysis.varient_analysis import NumericalUnivarientAnalyzer
+
+# Univarient analysers
+nva = NumericalUnivarientAnalyzer()
+nva.setOptions('city').analyse(df)
+```
+
 ## Important
 
 If you found an Module not found error, Execute below code
