@@ -1,7 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
-from .abs_missing_value_analysis import MissingValueAnalyzerTemplate
+from .abs_missing_value_analysis_templete import MissingValueAnalyzerTemplate
 
 class BasicMissingValueAnalyser(MissingValueAnalyzerTemplate):
 
