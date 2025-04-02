@@ -81,7 +81,7 @@ analyzer = BasicMissingValueAnalyser()
 analyzer.analyse(df)
 ```
 
-2. Univariant Analyser
+3. Univariant Analyser
 
 This component allows you to understand and analyse, visualize of one feature in the dataset. This component uses strategy design pattern to implement analser.
 
@@ -98,8 +98,20 @@ This component allows you to understand and analyse, visualize of one feature in
 from src.analysis.varient_analysis import NumericalUnivarientAnalyzer
 
 # Univarient analysers
-nva = NumericalUnivarientAnalyzer()
-nva.setOptions('city').analyse(df)
+nva = NumericalUnivarientAnalyzer('city')
+nva.analyse(df)
+```
+
+3. Bivariant Analyser
+
+This component allows you to understand and analyse, visualize of two features in the dataset. This component uses strategy design pattern to implement analser.
+
+```
+from src.analysis.varient_analysis import CategoricalBiVarientAnalysis
+
+# Univarient analysers
+nva = CategoricalBiVarientAnalysis('city', 'price')
+nva.analyse(df)
 ```
 
 ## Important
