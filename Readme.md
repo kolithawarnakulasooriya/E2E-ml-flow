@@ -97,7 +97,6 @@ This component allows you to understand and analyse, visualize of one feature in
 ```
 from src.analysis.varient_analysis import NumericalUnivarientAnalyzer
 
-# Univarient analysers
 nva = NumericalUnivarientAnalyzer('city')
 nva.analyse(df)
 ```
@@ -109,8 +108,18 @@ This component allows you to understand and analyse, visualize of two features i
 ```
 from src.analysis.varient_analysis import CategoricalBiVarientAnalysis
 
-# Univarient analysers
 nva = CategoricalBiVarientAnalysis('city', 'price')
+nva.analyse(df)
+```
+
+3. Multivarient Analyser
+
+This component allows you to understand and analyse, visualize of all features in the dataset as pair wise. This component uses templete design pattern to implement analser.
+
+```
+from src.analysis.varient_analysis import BasicMultiVarientAnalysis
+
+nva = BasicMultiVarientAnalysis()
 nva.analyse(df)
 ```
 
