@@ -123,3 +123,17 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.abspath(os.path.join(os.getcwd(), os.pardir))))
 ```
+
+## ZenML
+
+We use ZenML as our ML pipiline. For more [ZenML](https://docs.zenml.io/).
+
+### Basic Steps for running. (expected as local)
+
+1. Install ZenML
+
+`pip install zenml`
+
+2. Run ZenML Server. We use detached docker container for this. ZenML provides it.
+
+`docker run -it -d -p 8080:8080 zenmldocker/zenml-server`
