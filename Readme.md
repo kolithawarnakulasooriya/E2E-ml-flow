@@ -149,7 +149,7 @@ zenml integration install mlflow -y
 5. Set your global stack
 `zenml stack set mlflow_stack`
 
-![s1](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/alts/s1/png)
+[![s1](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/alts/s1/png)](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/blob/main/alts/s1.png)
 
 6. execute demo executor
 `python demo_executor.py`
