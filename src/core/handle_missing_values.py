@@ -41,7 +41,7 @@ class DropMissingValues(MissingValueHandlingStrategy):
         logging.info(f"Completed:Missing value:{id_}")
         return cleaned_df
     
-class FillMissingValue(MissingValueHandlingStrategy):
+class FillMissingValues(MissingValueHandlingStrategy):
     
     """Place valid values in missing value cells
     """

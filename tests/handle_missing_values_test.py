@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
 import pandas as pd
-from src.core.handle_missing_values import DropMissingValues, FillMissingValue, MissingValueHandlerDecorator
+from src.core.handle_missing_values import DropMissingValues, FillMissingValues, MissingValueHandlerDecorator
 
 class TestDropMissingValues(unittest.TestCase):
 
@@ -16,7 +16,7 @@ class TestFillMissingValues(unittest.TestCase):
 
     @patch('src.core.handle_missing_values.logging')
     def test_fill_missing_values_with_mean(self, mock_log):
-        strategy = FillMissingValue(method="mean")
+        strategy = FillMissingValues(method="mean")
         df = pd.DataFrame({'test': [1,2,3,None], 'name': ['test1','test2','test3','test4']})
         df_cleaned = strategy.handle(df)
         
@@ -24,7 +24,7 @@ class TestFillMissingValues(unittest.TestCase):
 
     @patch('src.core.handle_missing_values.logging')
     def test_fill_missing_values_with_median(self, mock_log):
-        strategy = FillMissingValue(method="median")
+        strategy = FillMissingValues(method="median")
         df = pd.DataFrame({'test': [1,2,3,None], 'name': ['test1','test2','test3','test4']})
         df_cleaned = strategy.handle(df)
         
@@ -32,7 +32,7 @@ class TestFillMissingValues(unittest.TestCase):
 
     @patch('src.core.handle_missing_values.logging')
     def test_fill_missing_values_with_mode(self, mock_log):
-        strategy = FillMissingValue(method="mode")
+        strategy = FillMissingValues(method="mode")
         df = pd.DataFrame({'test': [2,2,3,None], 'name': ['test1','test2','test3','test4']})
         df_cleaned = strategy.handle(df)
         
@@ -40,7 +40,7 @@ class TestFillMissingValues(unittest.TestCase):
 
     @patch('src.core.handle_missing_values.logging')
     def test_fill_missing_values_with_constant(self, mock_log):
-        strategy = FillMissingValue(method="constant", fill_value=4.0)
+        strategy = FillMissingValues(method="constant", fill_value=4.0)
         df = pd.DataFrame({'test': [2,2,3,None], 'name': ['test1','test2','test3','test4']})
         df_cleaned = strategy.handle(df)
         
@@ -48,7 +48,7 @@ class TestFillMissingValues(unittest.TestCase):
 
     @patch('src.core.handle_missing_values.logging')
     def test_fill_missing_values_with_non_allowed_methods(self, mock_log):
-        strategy = FillMissingValue(method="na")
+        strategy = FillMissingValues(method="na")
         df = pd.DataFrame({'test': [2,2,3,None], 'name': ['test1','test2','test3','test4']})
         
         self.assertRaises(ValueError, strategy.handle, df)
