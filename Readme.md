@@ -123,3 +123,34 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.abspath(os.path.join(os.getcwd(), os.pardir))))
 ```
+
+## ZenML
+
+We use ZenML as our ML pipiline. For more [ZenML](https://docs.zenml.io/).
+
+### Run your experiments locally with MLFlow
+
+1. Install ZenML
+```
+pip install zenml
+pip install "zenml[server]==0.80.1"
+zenml integration install mlflow -y
+```
+
+2. Run ZenML Server.
+`zenml login --local`
+
+3. Register your tracker in zenml. `mlflow_tracker` is the tracker name
+`zenml experiment-tracker register mlflow_tracker -f=mlflow`
+
+4. Register ZenML stack. 
+`zenml stack register mlflow_stack -e mlflow_tracker -a default -o default`
+
+5. Set your global stack
+`zenml stack set mlflow_stack`
+
+![s1](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/alts/s1/png)
+
+6. execute demo executor
+`python demo_executor.py`
+
