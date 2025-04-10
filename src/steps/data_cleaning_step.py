@@ -1,7 +1,7 @@
 from zenml import step
 import pandas as pd
 from typing import Optional
-from src.core.handle_missing_values import MissingValueHandler, DropMissingValues, FillMissingValues
+from src.core.missing_value_handling import MissingValueHandler, DropMissingValues, FillMissingValues
 
 @step
 def data_clean_and_fix(df: pd.DataFrame, method: str = 'drop', fill_value: Optional[int]=None) -> pd.DataFrame:
