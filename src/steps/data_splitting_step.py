@@ -1,9 +1,9 @@
-from pandas import DataFrame
+from pandas import DataFrame, Series
 from zenml.steps import step
 from src.core.data_splitting import DataSplitter
 
 @step
-def data_splitting_step(df: DataFrame, strategy_type:str, test_size: float = 0.2, random_state: int = 1) -> tuple[DataFrame, DataFrame]:
+def data_splitting_step(df: DataFrame, strategy_type:str, target_column: str, test_size: float = 0.2, random_state: int = 1) -> tuple[DataFrame, DataFrame, Series, Series]:
     """
     Step to split the data into training and testing sets.
 
@@ -21,4 +21,6 @@ def data_splitting_step(df: DataFrame, strategy_type:str, test_size: float = 0.2
     if not (0 < test_size < 1):
         raise ValueError("test_size must be between 0 and 1.")
     
-    return DataSplitter(strategy_type=strategy_type, test_size=test_size, random_state=random_state).split_data(df)
+    X_train, X_test, y_train, y_test = DataSplitter(strategy_type=strategy_type, test_size=test_size, random_state=random_state).split_data(df, target_column=target_column)
+    
+    return X_train, X_test, y_train, y_test

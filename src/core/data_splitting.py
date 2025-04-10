@@ -11,7 +11,7 @@ class DataSplittingStrategy(ABC):
     """
 
     @abstractmethod
-    def split_data(self, df: pd.DataFrame, target_coumn: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    def split_data(self, df: pd.DataFrame, target_column: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Split the data into training and testing sets.
 
@@ -40,7 +40,7 @@ class BasicDataSplittingStrategy(DataSplittingStrategy):
         self.test_size = test_size
         self.random_state = random_state
 
-    def split_data(self, df: pd.DataFrame, target_coumn: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    def split_data(self, df: pd.DataFrame, target_column: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Split the data into training and testing sets.
 
@@ -59,8 +59,8 @@ class BasicDataSplittingStrategy(DataSplittingStrategy):
             raise ValueError("test_size must be between 0 and 1.")
 
         logging.info("Splitting data into training and testing sets.")
-        X = df.drop(columns=[target_coumn])
-        y = df[target_coumn]
+        X = df.drop(columns=[target_column])
+        y = df[target_column]
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
         logging.info("Data splitting completed.")
@@ -103,7 +103,7 @@ class DataSplitter:
         """
         self.strategy = DataSplitterFactory.create_data_splitter(strategy_type, test_size, random_state)
 
-    def split_data(self, df: pd.DataFrame, target_column: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    def split_data(self, df: pd.DataFrame, target_column: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """
         Split the data into training and testing sets.
 

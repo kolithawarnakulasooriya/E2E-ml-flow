@@ -13,7 +13,7 @@ def my_pipeline():
     df = feature_engineering_step(df, "standard", ["price"])
     df = outlier_handling_step(df, "remove", "zscore", 1.0)
 
-    X_train, y_train, X_test, y_test = data_splitting_step(df, "basic", 0.2, 1.0)
+    X_train, y_train, X_test, y_test = data_splitting_step(df, "basic", "price", 0.2, 1.0)
 
 if __name__ == "__main__":
     my_pipeline()
