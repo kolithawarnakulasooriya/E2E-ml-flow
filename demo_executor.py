@@ -1,19 +1,10 @@
 from src.framework.project import DefaultProjectTemplete
-
-class Project(DefaultProjectTemplete):
-    """Project Tempalate class
-    Args:
-        pipeline_name (str): name of the pipeline
-    """
-    def __init__(self, pipeline_name: str):
-        super().__init__(pipeline_name)
+from src.framework.pipeline_step import StepFactory
 
 if __name__ == "__main__":
     
-    project = Project("prices_predictor_pipeline")
+    project = DefaultProjectTemplete("prices_predictor_pipeline")
+    project.add_step(StepFactory.create_step("data_ingestion", file_path="data/archive.zip", file_extension=".zip"))
+    project.add_step(StepFactory.create_step("data_cleaning", method="drop", fill_value=None))
 
-    project.file_path = "/home/dronelab/Projects/e2e-ml-flow/data/archive.zip"
-    project.file_extension = ".zip"
-    project.add_clean_data_method('drop', None)
-
-    project.run_my_pipeline()
+    project.run_pipeline()
