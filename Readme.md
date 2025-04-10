@@ -148,6 +148,7 @@ zenml integration install mlflow -y
 
 2. Run ZenML Server.
 `zenml login --local`
+`zenml init`
 
 3. Register your tracker in zenml. `mlflow_tracker` is the tracker name
 `zenml experiment-tracker register mlflow_tracker -f=mlflow`
