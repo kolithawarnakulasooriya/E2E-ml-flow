@@ -3,6 +3,6 @@ from src.core.feature_engineering import FeatureEngineeringFactory
 import pandas as pd
 
 @step
-def feature_engineering_step(df: pd.Dataframe, method: str, features: list):
+def feature_engineering_step(df: pd.DataFrame, method: str, features: list):
     strategy = FeatureEngineeringFactory.create_straegy(method, features)
     return strategy.transform(df)

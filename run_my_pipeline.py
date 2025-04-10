@@ -7,7 +7,8 @@ from src.steps.feature_engineering_step import feature_engineering_step
 def my_pipeline():
     df = data_ingestion_step("data/archive.zip", ".zip")
     df = data_clean_and_fix(df, "drop", None)
-    df = feature_engineering_step(df, "log", ["price", "area"])
+    df = feature_engineering_step(df, "log", ["area"])
+    df = feature_engineering_step(df, "standard", ["price"])
 
 if __name__ == "__main__":
     my_pipeline()

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import pandas as pd
 import logging
 import numpy as np
-
+from sklearn.preprocessing import StandardScaler
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class FeatureEngineeringStrategy(ABC):
@@ -35,8 +35,24 @@ class LogTransformation(FeatureEngineeringStrategy):
         df_transformed = df.copy()
         for feature in self.feature_set:
             df_transformed[feature] = np.log1p(df_transformed[feature])
-        return df_transformed
 
+        logging.info(f"Log transformation applied to features: {self.feature_set}")
+        return df_transformed
+    
+class StadardScalerTranformation(FeatureEngineeringStrategy):
+    """StandardScaler strategy for feature engineering."""
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Apply standard scaling to the specified features.
+        df: The DataFrame to be transformed.
+        """
+        logging.info(f"Applying standard scaling to features: {self.feature_set}")
+        df_transformed = df.copy()
+        scaler = StandardScaler()
+        for feature in self.feature_set:
+            df_transformed[feature] = scaler.fit_transform(df_transformed[[feature]])
+
+        logging.info(f"Standard scaling applied to features: {self.feature_set}")
+        return df_transformed
 
 class FeatureEngineeringFactory():
     """Factory class for creating feature engineering strategies."""
@@ -51,5 +67,7 @@ class FeatureEngineeringFactory():
         """
         if strategy_type == "log":
             return LogTransformation(feature_set)
+        elif strategy_type == "standard":
+            return StadardScalerTranformation(feature_set)
         else:
             raise ValueError(f"Unknown strategy type: {strategy_type}")
