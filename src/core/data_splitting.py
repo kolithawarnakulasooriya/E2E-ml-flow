@@ -65,7 +65,7 @@ class BasicDataSplittingStrategy(DataSplittingStrategy):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
         logging.info("Data splitting completed.")
         logging.debug(f"X_train shape: {X_train.shape}, y_train shape: {y_train.shape}")
-        return X_train, y_train, X_test, y_test
+        return X_train, X_test, y_train, y_test
     
 class DataSplitterFactory:
     """

@@ -3,7 +3,7 @@ from zenml.steps import step
 from src.core.data_splitting import DataSplitter
 
 @step
-def data_splitting_step(df: DataFrame, strategy_type:str, test_size: float = 0.2, random_state: float = 1.0, **kwargs) -> tuple[DataFrame, DataFrame]:
+def data_splitting_step(df: DataFrame, strategy_type:str, test_size: float = 0.2, random_state: int = 1) -> tuple[DataFrame, DataFrame]:
     """
     Step to split the data into training and testing sets.
 

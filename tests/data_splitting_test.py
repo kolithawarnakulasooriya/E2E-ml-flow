@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 from unittest.mock import patch
-from src.core.data_splitting import DataSplitter, DataSplitterFactory, BasicDataSplittingStrategy, StratifiedDataSplittingStrategy
+from src.core.data_splitting import DataSplitter, DataSplitterFactory, BasicDataSplittingStrategy
 
 class TestBasicDataSplittingStrategy(unittest.TestCase):
 
@@ -10,8 +10,8 @@ class TestBasicDataSplittingStrategy(unittest.TestCase):
         strategy = BasicDataSplittingStrategy(test_size=0.2, random_state=1)
         X_train, X_test, y_train, y_test = strategy.split_data(df, target_coumn='test')
         self.assertEqual(len(X_train), 80)
-        self.assertEqual(len(X_test), 80)
-        self.assertEqual(len(y_train), 20)
+        self.assertEqual(len(X_test), 20)
+        self.assertEqual(len(y_train), 80)
         self.assertEqual(len(y_test), 20)
 
 class TestDataSplitterFactory(unittest.TestCase):
@@ -30,8 +30,8 @@ class TestDataSplitter(unittest.TestCase):
         strategy = DataSplitter(strategy_type='basic', test_size=0.2, random_state=1)
         X_train, y_train, X_test, y_test = strategy.split_data(df, target_column='test')
         self.assertEqual(len(X_train), 80)
-        self.assertEqual(len(X_test), 80)
-        self.assertEqual(len(y_train), 20) 
+        self.assertEqual(len(X_test), 2)
+        self.assertEqual(len(y_train), 80) 
         self.assertEqual(len(y_test), 20)
 
     def test_unknown_method(self):
