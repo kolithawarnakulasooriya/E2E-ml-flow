@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
 import pandas as pd
-from src.core.handle_missing_values import DropMissingValues, FillMissingValues, MissingValueHandlerDecorator
+from src.core.handle_missing_values import DropMissingValues, FillMissingValues, MissingValueHandler
 
 class TestDropMissingValues(unittest.TestCase):
 
@@ -57,7 +57,7 @@ class TestFillMissingValuesHandler(unittest.TestCase):
 
     @patch('src.core.handle_missing_values.logging')
     def test_handle_missing_values(self, mock_log):
-        strategy = MissingValueHandlerDecorator()
+        strategy = MissingValueHandler()
         mock_strategy_1 = DropMissingValues()
         df = pd.DataFrame({'test': [2,2,3,None], 'name': ['test1','test2','test3','test4']})
         
