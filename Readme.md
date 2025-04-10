@@ -162,5 +162,5 @@ zenml integration install mlflow -y
 ![Alt](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/blob/main/alts/s1.png)
 
 6. execute demo executor
-`python demo_executor.py`
+`python run_my_pipeline.py`
 
