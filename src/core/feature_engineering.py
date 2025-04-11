@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 class FeatureEngineeringStrategy(ABC):
 
-    def __init__(self, feature_set: list):
+    def __init__(self, feature_set: list| None):
         """
         Initialize the feature engineering strategy.
 
@@ -23,6 +23,17 @@ class FeatureEngineeringStrategy(ABC):
         Returns: The transformed DataFrame.
         """
         pass
+    
+class NumericalFeatureSelection(FeatureEngineeringStrategy):
+    """Numerical feature selection strategy for feature engineering."""
+    
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Select numerical features from the DataFrame."""
+        logging.info(f"Selecting numerical features: {self.feature_set}")
+        df_transformed = df.copy()
+        df_transformed = df_transformed.select_dtypes(include=[np.number])
+        logging.info(f"Numerical features selected: {df_transformed.columns.tolist()}")
+        return df_transformed
 
 class LogTransformation(FeatureEngineeringStrategy):
     """Log transformation strategy for feature engineering."""
@@ -39,7 +50,7 @@ class LogTransformation(FeatureEngineeringStrategy):
         logging.info(f"Log transformation applied to features: {self.feature_set}")
         return df_transformed
     
-class StadardScalerTranformation(FeatureEngineeringStrategy):
+class StandardScalerTransformation(FeatureEngineeringStrategy):
     """StandardScaler strategy for feature engineering."""
     def transform(self, df: pd.DataFrame) -> pd.DataFrame:
         """Apply standard scaling to the specified features.
@@ -58,7 +69,7 @@ class FeatureEngineeringFactory():
     """Factory class for creating feature engineering strategies."""
 
     @staticmethod
-    def create_strategy(strategy_type: str, feature_set: list) -> FeatureEngineeringStrategy:
+    def create_strategy(strategy_type: str, feature_set: list | None) -> FeatureEngineeringStrategy:
         """Create a feature engineering strategy based on the type.
         Parameters:
         - strategy_type: The type of feature engineering strategy. 
@@ -68,6 +79,8 @@ class FeatureEngineeringFactory():
         if strategy_type == "log":
             return LogTransformation(feature_set)
         elif strategy_type == "standard":
-            return StadardScalerTranformation(feature_set)
+            return StandardScalerTransformation(feature_set)
+        elif strategy_type == "numerical":
+            return NumericalFeatureSelection(feature_set)
         else:
             raise ValueError(f"Unknown strategy type: {strategy_type}")

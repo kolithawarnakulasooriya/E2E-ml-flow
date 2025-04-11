@@ -26,7 +26,7 @@ def data_splitting_step(df: DataFrame, strategy_type:str, target_column: str, te
         raise ValueError("test_size must be between 0 and 1.")
     
     logging.info(f"Splitting data using {strategy_type} strategy with test size {test_size}.")
-    df = df.select_dtypes(include=[np.number])
+    
     X_train, X_test, y_train, y_test = DataSplitter(strategy_type=strategy_type, test_size=test_size, random_state=random_state).split_data(df, target_column=target_column)
     
     logging.info(f"Data split completed. Training set size: {X_train.shape[0]}, Testing set size: {X_test.shape[0]}.")
