@@ -58,7 +58,7 @@ class FeatureEngineeringFactory():
     """Factory class for creating feature engineering strategies."""
 
     @staticmethod
-    def create_straegy(strategy_type: str, feature_set: list) -> FeatureEngineeringStrategy:
+    def create_strategy(strategy_type: str, feature_set: list) -> FeatureEngineeringStrategy:
         """Create a feature engineering strategy based on the type.
         Parameters:
         - strategy_type: The type of feature engineering strategy. 

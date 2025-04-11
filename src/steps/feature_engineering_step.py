@@ -4,5 +4,5 @@ import pandas as pd
 
 @step
 def feature_engineering_step(df: pd.DataFrame, method: str, features: list):
-    strategy = FeatureEngineeringFactory.create_straegy(method, features)
+    strategy = FeatureEngineeringFactory.create_strategy(method, features)
     return strategy.transform(df)

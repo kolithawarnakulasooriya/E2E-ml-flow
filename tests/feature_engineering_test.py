@@ -24,17 +24,17 @@ class TestStadardScalerTranformationn(unittest.TestCase):
 class TestFeatureEngineeringFactory(unittest.TestCase):
 
     def test_log_transformation_step(self):
-        strategy = FeatureEngineeringFactory().create_straegy("log", ['test'])
+        strategy = FeatureEngineeringFactory().create_strategy("log", ['test'])
         self.assertIsInstance(strategy, LogTransformation)
         self.assertEqual(strategy.feature_set, ['test'])
 
     def test_standard_scale_transformation_step(self):
-        strategy = FeatureEngineeringFactory().create_straegy("standard", ['test'])
+        strategy = FeatureEngineeringFactory().create_strategy("standard", ['test'])
         self.assertIsInstance(strategy, StadardScalerTranformation)
         self.assertEqual(strategy.feature_set, ['test'])
 
     def test_log_invalid_step(self):
-        self.assertRaises(ValueError, FeatureEngineeringFactory().create_straegy, "na", ['test'])
+        self.assertRaises(ValueError, FeatureEngineeringFactory().create_strategy, "na", ['test'])
 
 if __name__ == '__main__':
     unittest.main()
