@@ -16,7 +16,7 @@ class TestNumericalFeatureSelection(unittest.TestCase):
 
     def test_apply_numeric_feature_transfomation(self):
         df = pd.DataFrame({'test': [1,3,5], 'name': ['test10', 'test20', 'test30']})
-        strategy = NumericalFeatureSelection()
+        strategy = NumericalFeatureSelection(None)
         transformed_df = strategy.transform(df)
         expected_df = pd.DataFrame({'test': [1,3,5]})
         pd.testing.assert_frame_equal(transformed_df, expected_df, check_exact=False, check_dtype=False)

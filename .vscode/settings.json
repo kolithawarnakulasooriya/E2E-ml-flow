@@ -14,5 +14,6 @@
             "strings": "on",
             "other": "on"
         }
-    }
+    },
+    "docwriter.style": "Javadoc"
 }

@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 from unittest.mock import patch, Mock
-from src.core.model_building import LinearRegressionModelBuildingStrategy, ModelBuildFactory, ModelBuilder
+from src.core.model_building import LinearRegressionModelBuildingStrategy, ModelBuildFactory
 from sklearn.pipeline import Pipeline
 
 class TestLinearRegressionModelBuildingStrategyStrategy(unittest.TestCase):
