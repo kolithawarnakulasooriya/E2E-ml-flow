@@ -40,11 +40,10 @@ zenml integration install mlflow -y
 5. Set your global stack
 `zenml stack set <tracker_name>`
 
-![Alt](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/blob/main/alts/s1.png)
-
 6. execute demo executor
 `python run_my_pipeline.py`
 
+![Alt](https://github.com/kolithawarnakulasooriya/E2E-ml-flow/blob/main/alts/s3.png)
 
 ## Test Coverage
 
