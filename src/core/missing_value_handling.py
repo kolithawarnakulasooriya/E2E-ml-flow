@@ -88,7 +88,7 @@ class FillMissingValues(MissingValueHandlingStrategy):
         return cleaned_df
 
 
-class MissingValueHandlerDecorator():
+class MissingValueHandler():
 
     """Handle and clean the dataframe by handling missing values, and gabage values
     """
