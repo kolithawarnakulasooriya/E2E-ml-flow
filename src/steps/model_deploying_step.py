@@ -13,7 +13,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 @step
-def model_deployment_step(run_id:str, model: Pipeline, workers:int = 1) -> Optional[MLFlowDeploymentService]:
+def model_deployment_step(name:str, description:str, run_id:str, model: Pipeline, workers:int = 1) -> Optional[MLFlowDeploymentService]:
 
     logging.info("Starting model deployment step...")
     logging.info(f"Run ID: {run_id}")
@@ -36,8 +36,8 @@ def model_deployment_step(run_id:str, model: Pipeline, workers:int = 1) -> Optio
     logging.info(f"Model URI: {model_uri}, Model Name: {model_name}")
 
     mlflow_deployment_config = MLFlowDeploymentConfig(
-        name = "mlflow-model-deployment-example",
-        description = "An example of deploying a model using the MLflow Model Deployer",
+        name = name,
+        description = description,
         pipeline_name = get_step_context().pipeline.name,
         pipeline_step_name = get_step_context().step_name,
         model_uri = model_uri,
@@ -67,7 +67,6 @@ def model_deployment_step(run_id:str, model: Pipeline, workers:int = 1) -> Optio
         service_type=MLFlowDeploymentService.SERVICE_TYPE
     )
 
-    logging.info(f"MLflow deployment service started and reachable at: {service.PREDICTION_URL}")
     logging.info(f"The deployed service info: {model_deployer.get_model_server_info(service)}")
     
     return service

@@ -22,12 +22,12 @@ def train():
     df = feature_engineering_step(df, "log", ['likes_received','mutual_matches','message_sent_count','last_active_hour'])
     df = outlier_handling_step(df, "remove", "zscore", 1.0)
     
-    X_train, X_test, y_train, y_test = data_splitting_step(df, "basic", "price", 0.2, 1.0)
+    X_train, X_test, y_train, y_test = data_splitting_step(df, "basic", "last_active_hour", 0.2, 1.0)
     
     model,run_id = model_building_step("linear_regression", X_train, y_train)
     
     mse, r2 = model_evaluator_step(model, X_test, y_test)
 
-    model_deployment_step(run_id, model)
+    model_deployment_step("stay_live_hours_prediction","prediction model for stat long hours in the dating apps",run_id, model)
     
     return model
