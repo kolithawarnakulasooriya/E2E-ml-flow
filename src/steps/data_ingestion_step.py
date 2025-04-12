@@ -1,6 +1,6 @@
 from zenml import step
 import pandas as pd
-from src.data_ingester.data_ingester_factory import DataIngesterFactory
+from src.core.data_ingesting import DataIngestFactory
 
 @step
 def data_ingestion_step(file_path: str, file_extension: str) -> pd.DataFrame:
@@ -9,7 +9,7 @@ def data_ingestion_step(file_path: str, file_extension: str) -> pd.DataFrame:
     Ingest data from certain file
     """
 
-    data_ingestor = DataIngesterFactory.get_data_ingester(file_extension)
-    df = data_ingestor.ingest(file_path=file_path)
+    data_ingest = DataIngestFactory.get_data_ingest(file_extension)
+    df = data_ingest.ingest(file_path=file_path)
 
     return df
