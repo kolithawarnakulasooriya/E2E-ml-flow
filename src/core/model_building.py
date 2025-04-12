@@ -25,6 +25,16 @@ class ModelBuildingStrategy(ABC):
         self.y_train = y_train
         self.model_pipeline: Pipeline = None
         logging.info("Training data set successfully.")
+
+    def get_model(self):
+        """Returns the trained model.
+
+        Returns:
+            Any: The trained model.
+        """
+        if self.model_pipeline is None:
+            raise ValueError("Model pipeline is not set. Please call build_model() first.")
+        return self.model_pipeline.named_steps['model']
         
     def get_pipeline(self) -> Pipeline:
         """Returns the model pipeline.
