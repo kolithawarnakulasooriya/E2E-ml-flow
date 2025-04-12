@@ -12,6 +12,10 @@ This framework allows an E2E machine learning framework from data ingestion, ana
 
 We use ZenML as our ML pipiline. For more [ZenML](https://docs.zenml.io/).
 
+## Where your data alts
+
+your data files needs to go in the `/data` directory
+
 ### Run your experiments locally with MLFlow
 
 1. Install ZenML

@@ -8,3 +8,4 @@
 
 /mlruns
 .coverage
+/data
