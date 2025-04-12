@@ -35,7 +35,7 @@ class ZipDataIngest(DataIngest):
     Returns:
         pandas data frame 
     """
-    def ingest(self, file_path: str) -> pd.DataFrame:
+    def ingest(self, file_path: str, exact_csv: str = None) -> pd.DataFrame:
         # if the path is not determined zip file put a guard clause
         if not file_path.endswith('zip'):
             raise ValueError(".zip file should be provided!")
@@ -53,8 +53,15 @@ class ZipDataIngest(DataIngest):
             raise FileNotFoundError("No CSV files found!")
         
         # if multiple files found
-        if len(csv_files) > 1:
+        if exact_csv == None and len(csv_files) > 1:
             raise ValueError("Multiple CSV files")
+        
+        # if exact csv file find
+        if exact_csv:
+            csv_files = [file for file in csv_files if file == exact_csv]
+
+            if not csv_files:
+                raise ValueError("No Exact CSV found")
         
         #read the csv file
         df = pd.read_csv(os.path.join(EXTRACTED_PATH, csv_files[0]))

@@ -50,6 +50,35 @@ class TestZipDataIngest(unittest.TestCase):
                 mock_zipfile.assert_called_once()
                 assert_frame_equal(df, mock_df)
 
+    @patch('pandas.read_csv')
+    @patch('src.core.data_ingesting.ZipFile') 
+    def test_exact_csv_file_with_dataframe(self, mock_zipfile, mock_pd):
+        data_ingest = ZipDataIngest()
+
+        with patch('os.listdir') as mocked_listdir:
+            with patch('os.path.join') as mocked_join:
+                mocked_listdir.return_value = ['file1.csv','file2.csv']
+                mocked_join.return_value = ''
+                mock_df = pd.DataFrame({})
+                mock_pd.return_value = mock_df
+                df = data_ingest.ingest('abs.zip',exact_csv='file2.csv')
+                mocked_listdir.assert_called_once()
+                mocked_join.assert_called_with("data/extracted",'file2.csv')
+                mock_pd.assert_called_once()
+                mock_zipfile.assert_called_once()
+                assert_frame_equal(df, mock_df)
+
+    @patch('src.core.data_ingesting.ZipFile')
+    def test_exact_csv_not_found_files(self, mock_zipfile):
+        data_ingest = ZipDataIngest()
+
+        with patch('os.listdir') as mocked_listdir:
+            mocked_listdir.return_value = ['file1.csv', 'file2.csv']
+            
+            self.assertRaises(ValueError, data_ingest.ingest, "abc.zip", 'file3.csv')
+            mocked_listdir.assert_called_once()
+            mock_zipfile.assert_called_once()
+
 class TestDataIngestFactory(unittest.TestCase):
     
     @patch('src.core.data_ingesting.ZipDataIngest')
