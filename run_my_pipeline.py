@@ -1,4 +1,4 @@
-from src.pipelines import training_pipeline
+from src.pipelines.training_pipeline import train
 import click
 
 @click.command()
@@ -7,6 +7,6 @@ def main():
     Run the training pipeline.
     """
     # Call the pipeline function
-    training_pipeline.my_pipeline()
+    train()
 if __name__ == "__main__":
     main()
