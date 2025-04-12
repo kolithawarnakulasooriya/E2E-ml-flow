@@ -34,6 +34,17 @@ class NumericalFeatureSelection(FeatureEngineeringStrategy):
         df_transformed = df_transformed.select_dtypes(include=[np.number])
         logging.info(f"Numerical features selected: {df_transformed.columns.tolist()}")
         return df_transformed
+    
+class CustomFeatureSelection(FeatureEngineeringStrategy):
+    """Custom feature selection strategy for feature engineering."""
+    
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Select numerical features from the DataFrame."""
+        logging.info(f"Selecting custom features: {self.feature_set}")
+        df_transformed = df.copy()
+        df_transformed = df_transformed[self.feature_set]
+        logging.info(f"Custom features selected: {df_transformed.columns.tolist()}")
+        return df_transformed
 
 class LogTransformation(FeatureEngineeringStrategy):
     """Log transformation strategy for feature engineering."""
@@ -82,5 +93,7 @@ class FeatureEngineeringFactory():
             return StandardScalerTransformation(feature_set)
         elif strategy_type == "numerical":
             return NumericalFeatureSelection(feature_set)
+        elif strategy_type == "custom":
+            return CustomFeatureSelection(feature_set)
         else:
             raise ValueError(f"Unknown strategy type: {strategy_type}")

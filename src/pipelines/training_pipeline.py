@@ -15,10 +15,11 @@ from src.steps.model_deploying_step import model_deployment_step
 @pipeline(name="pipeline-v001", model=Model(name="prediction_model_v001"), enable_cache=False)
 def train():
     df = pd.DataFrame()
-    df = data_ingestion_step("data/archive.zip", ".zip")
+    df = data_ingestion_step("data/archive.zip", ".zip", "dating_app_behavior_dataset.csv")
     df = data_clean_and_fix(df, "drop", None)
-    df = feature_engineering_step(df, "numerical", None)
-    df = feature_engineering_step(df, "log", ["price"])
+    df = feature_engineering_step(df, "custom", ['gender','sexual_orientation','likes_received','mutual_matches','message_sent_count','last_active_hour'])
+    #df = feature_engineering_step(df, "numerical", None)
+    df = feature_engineering_step(df, "log", ['likes_received','mutual_matches','message_sent_count','last_active_hour'])
     df = outlier_handling_step(df, "remove", "zscore", 1.0)
     
     X_train, X_test, y_train, y_test = data_splitting_step(df, "basic", "price", 0.2, 1.0)

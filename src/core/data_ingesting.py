@@ -9,7 +9,7 @@ class DataIngest(ABC):
         Abstract base class for data ingest
     """
     @abstractmethod
-    def ingest(self, file_path:str) -> pd.DataFrame:
+    def ingest(self, file_path:str, **args) -> pd.DataFrame:
         """_Perform any data ingestion from any data source
 
         Args:
@@ -30,7 +30,7 @@ class ZipDataIngest(DataIngest):
     """
     Ingest data from a certain zip file and read csv tabular data inside the file. return it as a pandas dataframe
 
-    Parameters: file path string 
+    Parameters: file path string, exact CSv file is the file you need get exactly
 
     Returns:
         pandas data frame 
